@@ -4,7 +4,6 @@ var generateBtn = document.querySelector("#generate");
 function generatePassword() {
 
   // Creating arrays of available characters for password
-  // ? Are there special characters that need to be avoided?
 
   const lowerCaseLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
   const upperCaseLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -22,12 +21,14 @@ function generatePassword() {
   passwordLength = parseInt(passwordLength);
 
   // Setting length requirements of password
+  // Return empty string removes 'undefined' if app is restarted
   if (passwordLength < 8 || passwordLength > 128) {
     alert("Please enter a number between 8 and 128");
     return "";
   }
   
   // Prompting user to only select integer values
+  // Return empty string removes 'undefined' if app is restarted
   if (Number.isInteger(passwordLength)===false) {
     alert("Please enter only an integer between 8 and 128");
     return "";
@@ -40,12 +41,13 @@ function generatePassword() {
   var special = confirm("Do you want to include special characters?");
   
   // If user says No to all, make them pick again with at least 1 character type
+  // Return empty string removes 'undefined' if app is restarted
   if (!lowerCase && !upperCase && !numeric && !special) {
     alert("You must select at least one character type");
     return "";
   }
 
-  // Each options selected by user gets concatenated into new array
+  // Each option selected by user gets concatenated into new array
   if (lowerCase) {
     options=options.concat(lowerCaseLetters)
   }
@@ -59,7 +61,7 @@ function generatePassword() {
     options=options.concat(specialCharacters)
   }
 
-  // Generates a random number between 0 and 1, then multiplies it by the length of the password length given by the user
+  // Generates a random number between 0 and 1, then multiplies it by the length of the password provided by the user
   for (let i=0; i<passwordLength;i++){
     let randomchar = options[Math.floor(Math.random()*options.length)]
     finalPassword += randomchar
@@ -67,6 +69,7 @@ function generatePassword() {
   }
 return finalPassword;
 }
+
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
